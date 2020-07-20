@@ -20,7 +20,7 @@ function handleError(res,error,code){
 exports.create = function(req,res){
     try{
         console.log(req.body)
-        req.body.role = "user";
+        // req.body.role = "user";
         console.log(req.body)
         UserService.create(req.body)
         .then( function (user){
@@ -31,23 +31,23 @@ exports.create = function(req,res){
                 message: "You have successfully signed up."
             }); 
         })
-        .catch(function(error){
-            //console.log('error')
-            //console.log(error)
-            if(error.errors && error.errors.email && error.errors.email.message == 'The specified email address is already in use.'){
-                res.send({message: 'The specified email address is already in use.', success: false})
-            }else if(error.errors && error.errors.email && error.errors.email.message == "Path `email` is required."){
-                res.send({message: 'Email is required', success: false})
-            }else if(error.message == 'Invalid password'){
-                res.send({message: 'Invalid password', success: false})
-            }
-            if(error.code == 11000)res.status(422).send(['This email address is already be in use'])
-            else{
-                handleError(res,error,500);
-            }
+        // .catch(function(error){
+        //     //console.log('error')
+        //     //console.log(error)
+        //     if(error.errors && error.errors.email && error.errors.email.message == 'The specified email address is already in use.'){
+        //         res.send({message: 'The specified email address is already in use.', success: false})
+        //     }else if(error.errors && error.errors.email && error.errors.email.message == "Path `email` is required."){
+        //         res.send({message: 'Email is required', success: false})
+        //     }else if(error.message == 'Invalid password'){
+        //         res.send({message: 'Invalid password', success: false})
+        //     }
+        //     if(error.code == 11000)res.status(422).send(['This email address is already be in use'])
+        //     else{
+        //         handleError(res,error,500);
+        //     }
            
             
-        })
+        // })
     }catch(e){
         res.send({
             success: false,
