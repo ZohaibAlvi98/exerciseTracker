@@ -24,10 +24,17 @@ export default class CreateExerciseList extends Component {
     }
 
     componentDidMount(){
+      axios.get('http://localhost:4040/api/user/get-user').then(response=>{
+        console.log(response)
+      if(response.data.success == true && response.data.user != null){
+        
         this.setState({
-            users:['test user'],
-            user: 'test user'
-        })
+          users: response.data.user.map(user => user.username),
+          username: response.data.user[0].username
+      })
+       }
+    })
+        
     }
     
     onChangeUsername(e){
@@ -56,6 +63,11 @@ export default class CreateExerciseList extends Component {
             date: this.state.date
         }
         console.log(exercise)
+        
+        axios.post('http://localhost:4040/api/exercise/add', exercise)
+        .then(res=>{
+            console.log(res)
+        })
 
         window.location = '/'
     }
@@ -65,23 +77,23 @@ export default class CreateExerciseList extends Component {
             <div>
             <h3>Create New Exercise Log</h3>
             <form onSubmit={this.onSubmit}>
-              <div className="form-group"> 
-                <label>Username: </label>
-                <select ref="userInput"
-                    required
-                    className="form-control"
-                    value={this.state.username}
-                    onChange={this.onChangeUsername}>
-                    {
-                      this.state.users.map(function(user) {
-                        return <option 
-                          key={user}
-                          value={user}>{user}
-                          </option>;
-                      })
-                    }
-                </select>
-              </div>
+            <div className="form-group"> 
+          <label>Username: </label>
+          <select ref="userInput"
+              required
+              className="form-control"
+              value={this.state.username}
+              onChange={this.onChangeUsername}>
+              {
+                this.state.users.map(function(user) {
+                  return <option 
+                    key={user}
+                    value={user}>{user}
+                    </option>;
+                })
+              }
+          </select>
+        </div>
               <div className="form-group"> 
                 <label>Description: </label>
                 <input  type="text"
