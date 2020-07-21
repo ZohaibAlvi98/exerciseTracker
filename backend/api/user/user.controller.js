@@ -126,11 +126,12 @@ exports.login = async function(req, res){
 
 exports.getUser = async(req,res)=>{
     try{
-    req.body = req.user._id;
-    let user= await UserModel.findOne({_id: req.body})
+        console.log('heere')
+    let user= await UserModel.find({})
+    console.log(user)
     res.send({
         success: true,
-        user,
+        user: user,
         message: "user"
     })
     }catch(e){

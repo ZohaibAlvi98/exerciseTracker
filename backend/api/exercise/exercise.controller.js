@@ -3,7 +3,7 @@ const ExerciseModel = require('./exercise.model')
 
 
 exports.fetchAllExercises = async (req,res)=>{
-    Exercise.find()
+    ExerciseModel.find()
     .then(exercises => res.json(exercises))
     .catch(err => res.status(400).json('Error: ' + err));
 
@@ -12,7 +12,8 @@ exports.fetchAllExercises = async (req,res)=>{
 
 exports.create = async(req,res)=>{
     try{
-        await ExerciseModel.creae(req.body, async function(err,exercise){
+        console.log('here')
+        await ExerciseModel.create(req.body, async function(err,exercise){
         res.send({
             success: true,
             exercise: exercise
@@ -55,4 +56,3 @@ exports.update = async (req,res)=>{
     .catch(err => res.status(400).json('Error: ' + err));
 }
 
-module.exports = router;

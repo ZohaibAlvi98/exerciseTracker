@@ -10,9 +10,9 @@ router.post('/register', controller.create);
 
 router.post('/login', controller.login);
 
-router.post("/update",controller.update);
+router.post("/update/:id",controller.update);
 
-router.get("/get-user",auth.isAuthenticated(),controller.getUser)
+router.get("/get-user",controller.getUser)
 
 
 // router.post('/register', controller.create());
